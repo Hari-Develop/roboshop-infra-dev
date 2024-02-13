@@ -23,20 +23,18 @@ parameters {
             }
         }
         stage("apply stage") {
-            when {
-                expression {
-                    ${params.action} != null
-                }
-            }
-            input {
-                message "should we continue"
-                ok "yes, please go ahead"
-            }
+            // when {
+            //     expression {
+            //         ${params.action} != null
+            //     }
+            // }
+            // input {
+            //     message "should we continue"
+            //     ok "yes, please go ahead"
+            // }
             steps {
                 sh """
-                    echo "print ${action}"
-                    cd 01-vpc
-                    terraform apply -auto-approve
+                    echo "print ${params.action}"
                 """
             }
         }
