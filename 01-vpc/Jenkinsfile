@@ -28,17 +28,13 @@ parameters {
                     ${params.action} == "$action"
                 }
             }
-            script {
-                sh """
-                    echo "print ${action}"
-                """
-            }
             input {
                 message "should we continue"
                 ok "yes, please go ahead"
             }
             steps {
                 sh """
+                    echo "print ${action}"
                     cd 01-vpc
                     terraform apply -auto-approve
                 """
