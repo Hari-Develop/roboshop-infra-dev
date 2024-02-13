@@ -1,28 +1,20 @@
-pipeline {
+pipelie{
     agent {
-        node {
-            label 'AGENT-1'
-        }
+        label "Jenkins_agent"
     }
-    options {
-        ansiColor('xterm')
-        // timeout(time: 1, unit: 'HOURS')
-        // disableConcurrentBuilds()
+parameters {
+        choice( name: 'action', choices: ['apply', 'destroy'], description: 'select action' )
     }
-    parameters {
-        choice(name: 'action', choices: ['apply', 'destroy'], description: 'Pick something')
-    }
-    // build
     stages {
-        stage('Init') {
+        stage("init stage") {
             steps {
                 sh """
                     cd 01-vpc
-                    terraform init -reconfigure
+                    terraform init
                 """
             }
         }
-        stage('Plan') {
+        stage("plan stage") {
             steps {
                 sh """
                     cd 01-vpc
@@ -30,19 +22,15 @@ pipeline {
                 """
             }
         }
-        stage('Deploy') {
+        stage("apply stage") {
             when {
-                expression { 
-                    params.action == 'apply'
+                expression {
+                    ${params.action} == "$action"
                 }
             }
             input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                // submitter "alice,bob"
-                // parameters {
-                //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                // }
+                message "should we continue"
+                ok "yes, please go ahead"
             }
             steps {
                 sh """
@@ -51,38 +39,13 @@ pipeline {
                 """
             }
         }
-        stage('Destroy') {
-            when {
-                expression { 
-                    params.action == 'destroy'
-                }
-            }
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                // submitter "alice,bob"
-                // parameters {
-                //     string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                // }
-            }
-            steps {
-                sh """
-                    cd 01-vpc
-                    terraform destroy -auto-approve
-                """
-            }
-        }
     }
-    // post build
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
-        }
-        failure { 
-            echo 'this runs when pipeline is failed, used generally to send some alerts'
-        }
+    post{
         success{
-            echo 'I will say Hello when pipeline is success'
+            echo "pipeline is success"
+        }
+        failure{
+            echo "pipline is failure"
         }
     }
 }
