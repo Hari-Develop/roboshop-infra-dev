@@ -1,0 +1,47 @@
+pipeline {
+    agent {
+        label "Jenkins_agent"
+    }
+    parameters {
+        choice(name: 'action', choices: ['apply', 'destroy'], description: 'select action')
+    }
+    stages {
+        stage("init stage") {
+            steps {
+                sh """
+                    cd 02-sg
+                    terraform init
+                """
+            }
+        }
+        stage("plan stage") {
+            steps {
+                sh """
+                    cd 02-sg
+                    terraform plan
+                """
+            }
+        }
+        stage("execute stage") {
+            when {
+                expression {
+                    params.action == "${action}"
+                }
+            }
+            steps {
+                sh """
+                    cd 02-sg
+                    terraform "${action}" -auto-approve
+                """
+            }
+        }
+    }
+    post {
+        success{
+            echo "pipeline is success"
+        }
+        failure{
+            echo "pipeline is failure"
+        }
+    }
+}
