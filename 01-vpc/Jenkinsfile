@@ -25,7 +25,7 @@ parameters {
         stage("apply stage") {
             when {
                 expression {
-                    ${params.action} == "$action"
+                    ${params.action} != null
                 }
             }
             input {
