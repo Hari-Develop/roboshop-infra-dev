@@ -28,6 +28,11 @@ parameters {
                     ${params.action} == "$action"
                 }
             }
+            script {
+                sh """
+                    echo "print ${action}"
+                """
+            }
             input {
                 message "should we continue"
                 ok "yes, please go ahead"
