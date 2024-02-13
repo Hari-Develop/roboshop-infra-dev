@@ -25,13 +25,13 @@ pipeline {
         stage("execute stage") {
             when {
                 expression {
-                    params.action == "${action}"
+                    params.action == "${params.action}"
                 }
             }
             steps {
                 sh """
                     cd 02-sg
-                    terraform "${action}" -auto-approve
+                    terraform "${params.action}" -auto-approve
                 """
             }
         }
