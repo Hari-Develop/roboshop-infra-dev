@@ -23,7 +23,7 @@ pipeline{
                 message "should we continue"
                 ok "yes, please go ahead"
             }
-            steps {
+            script {
                 sh """
                     echo "print ${params.action}"
                     terraform ${params.action} -auto-approve
@@ -47,7 +47,7 @@ pipeline{
                 message "should we continue"
                 ok "yes, please go ahead"
             }
-            steps {
+            script {
                 sh """
                     echo "print ${params.action}"
                     terraform ${params.action} -auto-approve
@@ -71,7 +71,7 @@ pipeline{
                 message "should we continue"
                 ok "yes, please go ahead"
             }
-            steps {
+            script {
                 sh """
                     echo "print ${params.action}"
                     terraform ${params.action} -auto-approve
