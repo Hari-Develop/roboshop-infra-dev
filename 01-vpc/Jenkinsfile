@@ -6,7 +6,7 @@ pipeline{
         choice( name: 'action', choices: ['apply', 'destroy'], description: 'select action' )
     }
     options {
-        ansicolor('xterm')
+        ansiColor('xterm')
     }
     stages {
         stage("01-vpc") {
