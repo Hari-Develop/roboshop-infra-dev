@@ -19,8 +19,8 @@ pipeline{
                 }
             }
             input {
-                message: "should we continue",
-                ok: "yes, please go ahead"
+                message "should we continue"
+                ok "yes, please go ahead"
             }
                 sh """
                     echo "print ${params.action}"
@@ -41,8 +41,8 @@ pipeline{
                 }
             }
             input {
-                message: "should we continue",
-                ok: "yes, please go ahead"
+                message "should we continue"
+                ok "yes, please go ahead"
             }
                 sh """
                     echo "print ${params.action}"
@@ -63,8 +63,8 @@ pipeline{
                 }
             }
             input {
-                message: "should we continue",
-                ok: "yes, please go ahead"
+                message "should we continue"
+                ok "yes, please go ahead"
             }
                 sh """
                     echo "print ${params.action}"
