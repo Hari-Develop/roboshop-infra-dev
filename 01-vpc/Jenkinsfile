@@ -12,10 +12,6 @@ pipeline{
                     cd 01-vpc
                     terraform init
                     terraform plan
-                    input {
-                        message "should we continue"
-                        ok "yes, please go ahead"
-                     }
                     terraform ${params.action} -auto-approve
                 """
             }
@@ -25,10 +21,7 @@ pipeline{
                 sh """
                     cd 02-sg
                     terraform init
-                input {
-                        message "should we continue"
-                        ok "yes, please go ahead"
-                     }
+                    terraform plan
                     terraform ${params.action} -auto-approve
                 """
             }
@@ -38,10 +31,7 @@ pipeline{
                 sh """
                     cd 04-database
                     terraform init
-                    input {
-                        message "should we continue"
-                        ok "yes, please go ahead"
-                     }
+                    terraform plan
                     terraform ${params.action} -auto-approve
                 """
             }
