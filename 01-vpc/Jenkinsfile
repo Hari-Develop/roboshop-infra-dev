@@ -2,28 +2,67 @@ pipeline{
     agent {
         label "Jenkins_agent"
     }
-parameters {
+    parameters {
         choice( name: 'action', choices: ['apply', 'destroy'], description: 'select action' )
     }
     stages {
-        stage("init stage") {
+        stage("01-vpc") {
             steps {
                 sh """
                     cd 01-vpc
                     terraform init
-                """
-            }
-        }
-        stage("plan stage") {
-            steps {
-                sh """
-                    cd 01-vpc
                     terraform plan
                 """
             }
-        }
-        stage("apply stage") {
             when {
+                expression {
+                    params.action == "${params.action}"
+                }
+            }
+            input {
+                message "should we continue"
+                ok "yes, please go ahead"
+            }
+            steps {
+                sh """
+                    echo "print ${params.action}"
+                    cd 01-vpc
+                    terraform ${params.action} -auto-approve
+                """
+            }
+        }
+        stage("02-sg") {
+            steps {
+                sh """
+                    cd 02-sg
+                    terraform plan
+                """
+            }
+            when {
+                expression {
+                    params.action == "${params.action}"
+                }
+            }
+            input {
+                message "should we continue"
+                ok "yes, please go ahead"
+            }
+            steps {
+                sh """
+                    echo "print ${params.action}"
+                    cd 01-vpc
+                    terraform ${params.action} -auto-approve
+                """
+            }
+        }
+        stage("04-databases") {
+            steps {
+                sh """
+                    cd 04-database
+                    terraform plan
+                """
+            }
+             when {
                 expression {
                     params.action == "${params.action}"
                 }
