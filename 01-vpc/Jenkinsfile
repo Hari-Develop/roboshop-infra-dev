@@ -26,7 +26,6 @@ pipeline{
             steps {
                 sh """
                     echo "print ${params.action}"
-                    cd 01-vpc
                     terraform ${params.action} -auto-approve
                 """
             }
@@ -35,6 +34,7 @@ pipeline{
             steps {
                 sh """
                     cd 02-sg
+                    terraform init
                     terraform plan
                 """
             }
@@ -50,7 +50,6 @@ pipeline{
             steps {
                 sh """
                     echo "print ${params.action}"
-                    cd 01-vpc
                     terraform ${params.action} -auto-approve
                 """
             }
@@ -59,6 +58,7 @@ pipeline{
             steps {
                 sh """
                     cd 04-database
+                    terraform init
                     terraform plan
                 """
             }
@@ -74,7 +74,6 @@ pipeline{
             steps {
                 sh """
                     echo "print ${params.action}"
-                    cd 01-vpc
                     terraform ${params.action} -auto-approve
                 """
             }
