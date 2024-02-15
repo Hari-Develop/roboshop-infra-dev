@@ -13,6 +13,7 @@ pipeline{
                     terraform init
                     terraform plan
                 """
+            }
             when {
                 expression {
                     params.action == "${params.action}"
@@ -28,8 +29,6 @@ pipeline{
                     terraform ${params.action} -auto-approve
                 """
             }
-
-         }
         }
         stage("02-sg") {
             steps {
@@ -38,6 +37,7 @@ pipeline{
                     terraform init
                     terraform plan
                 """
+            }
             when {
                 expression {
                     params.action == "${params.action}"
@@ -53,8 +53,6 @@ pipeline{
                     terraform ${params.action} -auto-approve
                 """
             }
-
-         }
         }
         stage("04-databases") {
             steps {
@@ -63,6 +61,7 @@ pipeline{
                     terraform init
                     terraform plan
                 """
+            }
              when {
                 expression {
                     params.action == "${params.action}"
@@ -78,7 +77,6 @@ pipeline{
                     terraform ${params.action} -auto-approve
                 """
             }
-        }
         }
     }
     post{
