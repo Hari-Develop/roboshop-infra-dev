@@ -29,7 +29,7 @@ pipeline{
         stage("04-databases") {
             steps {
                 sh """
-                    cd 04-database
+                    cd 04-databases
                     terraform init
                     terraform plan
                     terraform ${params.action} -auto-approve
