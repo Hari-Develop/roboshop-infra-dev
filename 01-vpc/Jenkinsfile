@@ -26,7 +26,6 @@ pipeline{
             steps {
                 sh """
                     echo "print ${params.action}"
-                    cd 01-vpc
                     terraform ${params.action} -auto-approve
                 """
             }
@@ -50,7 +49,6 @@ pipeline{
             steps {
                 sh """
                     echo "print ${params.action}"
-                    cd 01-vpc
                     terraform ${params.action} -auto-approve
                 """
             }
@@ -74,7 +72,6 @@ pipeline{
             steps {
                 sh """
                     echo "print ${params.action}"
-                    cd 01-vpc
                     terraform ${params.action} -auto-approve
                 """
             }
