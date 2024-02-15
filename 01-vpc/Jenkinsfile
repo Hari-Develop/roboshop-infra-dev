@@ -19,7 +19,7 @@ pipeline{
                 }
             }
             input {
-                message: "should we continue"
+                message: "should we continue",
                 ok: "yes, please go ahead"
             }
                 sh """
@@ -41,7 +41,7 @@ pipeline{
                 }
             }
             input {
-                message: "should we continue"
+                message: "should we continue",
                 ok: "yes, please go ahead"
             }
                 sh """
@@ -63,7 +63,7 @@ pipeline{
                 }
             }
             input {
-                message: "should we continue"
+                message: "should we continue",
                 ok: "yes, please go ahead"
             }
                 sh """
