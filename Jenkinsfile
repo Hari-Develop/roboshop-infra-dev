@@ -40,23 +40,19 @@ pipeline {
         }
         stage('DB ALB') {
             parallel {
-                stage('DB') {
-                    steps {
-                       sh """
+                stage('04-databases') {
+                    sh """
                         cd 04-databases
                         terraform init -reconfigure
                         terraform apply -auto-approve
-                      """
-                    }
+                    """
                 }
-                stage('APP ALB') {
-                    steps {
-                       sh """
+                stage('05-app-alb') {
+                    sh """
                         cd 05-app-alb
                         terraform init -reconfigure
                         terraform apply -auto-approve
-                      """
-                    }
+                    """
                 }
             }
         }
