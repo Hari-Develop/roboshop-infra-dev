@@ -28,7 +28,8 @@ pipeline{
                     terraform ${params.action} -auto-approve
                 """
             }
-        }stage('VPN') {
+        }
+        stage('VPN') {
             steps {
                 sh """
                     cd 03-vpn
