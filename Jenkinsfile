@@ -41,7 +41,7 @@ pipeline {
         stage('DB ALB') {
             parallel {
                 stage('04-databases') {
-                    steps{
+                    steps {
                         sh """
                         cd 04-databases
                         terraform init -reconfigure
@@ -50,7 +50,7 @@ pipeline {
                     }
                 }
                 stage('05-app-alb') {
-                    steps{
+                    steps {
                         sh """
                         cd 05-app-alb
                         terraform init -reconfigure
